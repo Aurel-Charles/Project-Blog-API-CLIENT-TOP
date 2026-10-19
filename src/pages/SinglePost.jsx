@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router"
-import { Comments } from "../components/Comments";
+import { Comments } from "../components/comments/Comments";
 import { apiFetch } from "../api/api";
 
 export function SinglePost() {
@@ -13,8 +13,6 @@ export function SinglePost() {
     let postId = params.postId
 
     useEffect(()=>{
-        // fetch
-        console.log("fetching Single Post");
         async function getPost() {
             try {
                 const data = await apiFetch(`/posts/${postId}`)

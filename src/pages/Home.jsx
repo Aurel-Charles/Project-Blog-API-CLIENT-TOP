@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Comments } from "../components/Comments";
+
 import { apiFetch } from "../api/api";
+import { Comments } from "../components/comments/Comments";
 
 export function Home() {
     const [lastPost, setLastPost] = useState(null)
     const [error, setError] = useState(null)
     
     useEffect(()=> {
-            console.log("fetching posts");
             async function getLastPost() {
                 try {
                     const data = await apiFetch(`/posts`)
@@ -22,7 +22,6 @@ export function Home() {
         []
     )
 
-    console.log(lastPost);
         
     let lastPostSection
 

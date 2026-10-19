@@ -6,7 +6,6 @@ export function Posts() {
     const [posts, setPosts] = useState(null)
     const [error, setError] = useState(null)
     useEffect(()=> {
-            console.log("fetching posts");
             async function getPosts() {
                 try {
                     const data = await apiFetch("/posts")

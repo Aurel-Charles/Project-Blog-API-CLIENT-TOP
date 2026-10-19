@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react"
-import { apiFetch } from "../api/api";
+import { apiFetch } from "../../api/api";
 import { CommentForm } from "./CommentForm";
+import { useOutletContext } from "react-router";
+import { SingleComment } from "./SingleComment";
 
 export function Comments({postId}) {
+    const {user} = useOutletContext()
     const [comments, setComments] = useState(null)
     const [error, setError] = useState(null)
+    const [deleteError, setDeleteError] = useState(null)
 
     function addComment(comment) {
         setComments((prevComments)=> [...prevComments, comment])
     }
 
     useEffect(()=> {
-            console.log("fetching comments");
             async function getComments() {
                 try {
                     const data = await apiFetch(`/posts/${postId}/comments`)
@@ -26,7 +29,21 @@ export function Comments({postId}) {
         [postId]
     )
 
-    console.log(comments);
+    function canManage(coment) {
+        if (!user) return false
+        if (user.role === "ADMIN") return true
+        return (coment.authorId === user.id)
+    }
+
+    async function deleteComment(commentId) {
+        try {
+            await apiFetch(`/posts/${postId}/comments/${commentId}`, "DELETE")
+            setComments((prev) => prev.filter((c) => c.id !== commentId))
+        } catch (error) {
+            console.error(error)
+            setDeleteError(error)  
+        }
+    }
     
     let commentsSection
 
@@ -42,12 +59,10 @@ export function Comments({postId}) {
     else {
         commentsSection = (
             <div>
+            {deleteError && <p>{deleteError.message}</p>}
+
             {comments.map((comment)=> (
-                <div key={comment.id}>
-                    <p> {comment.name} </p>
-                    <p> {comment.content} </p>
-                    <p> {new Date(comment.createdAt).toLocaleDateString("en-EN", { day: "numeric", month: "long", year: "numeric" })} </p>
-                </div>
+                <SingleComment key={comment.id} comment={comment} canManage={canManage} deleteComment={deleteComment} />
             ) )}
         </div>
         )

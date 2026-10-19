@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useOutletContext } from "react-router"
-import { apiFetch } from "../api/api"
+import { apiFetch } from "../../api/api"
 
 export function CommentForm({postId, addComment}) {
     const {token} = useOutletContext()
