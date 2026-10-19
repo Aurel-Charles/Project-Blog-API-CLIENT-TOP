@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { apiFetch } from "../api/api"
+import { useNavigate } from "react-router"
 
 export function Login() {
+    const navigate = useNavigate()
     const [email,  setEmail] = useState("")
     const [password,  setPassword] = useState("")
     const [error, setError] = useState(null)
-    const [isLoginConfirm, setIsLoginConfirm] = useState(false)
 
 
     function storeValue(setValue, e) {
@@ -15,14 +16,12 @@ export function Login() {
     function submitLogin(e) {
         e.preventDefault()
         const body = {email, password}
-        
+        setError(null)
         async function fetchToken(body) {
             try {
                 const data = await apiFetch(`/auth/login`, "POST", body)
                 localStorage.setItem("token" , data.token)
-                setIsLoginConfirm(true)
-                console.log(data);
-                setError(null)
+                navigate("/")
             } catch (error) {
                 console.error(error)
                 setError(error)
@@ -32,11 +31,7 @@ export function Login() {
         fetchToken(body)
     }
 
-    if (isLoginConfirm) {
-        return (
-            <p>youre logged redirection vert Home</p>
-        )
-    }
+
    
 
     return (

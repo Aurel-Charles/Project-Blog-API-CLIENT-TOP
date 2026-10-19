@@ -18,7 +18,6 @@ export function SinglePost() {
         async function getPost() {
             try {
                 const data = await apiFetch(`/posts/${postId}`)
-                
                 setPost(data)
             } catch (error) {
                 console.log(error);

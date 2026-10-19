@@ -1,27 +1,20 @@
 import './App.css'
-import { Link, Outlet } from 'react-router'
+import { Outlet } from 'react-router'
+import { Header } from './components/Header'
+import { Footer } from './components/Footer'
 
 function App() {
+  
+
   return (
     <>
-    <header>
-      <h1>My Odin Project blog</h1>
-
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/posts">Posts</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-      </nav>
-    </header>
+    <Header/>
 
     <main>
       <Outlet/>
     </main>
 
-    <footer>
-      <p>Footer for link stuff (repo/odin)</p>
-    </footer>
+    <Footer/>
     </>
   )
 }
