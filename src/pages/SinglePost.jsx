@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { Comments } from "../components/Comments";
+import { apiFetch } from "../api/api";
 
 export function SinglePost() {
     const [post, setPost] = useState(null)
@@ -16,12 +17,7 @@ export function SinglePost() {
         console.log("fetching Single Post");
         async function getPost() {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`)
-                if (!res.ok) {
-                    const body = await res.json()
-                    throw new Error(`HTTP error ${res.status} : ${body.error}`);
-                }
-                const data = await res.json()
+                const data = await apiFetch(`/posts/${postId}`)
                 
                 setPost(data)
             } catch (error) {

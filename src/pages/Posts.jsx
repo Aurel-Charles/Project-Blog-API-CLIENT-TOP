@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router";
+import { apiFetch } from "../api/api";
 
 export function Posts() {
     const [posts, setPosts] = useState(null)
@@ -8,12 +9,7 @@ export function Posts() {
             console.log("fetching posts");
             async function getPosts() {
                 try {
-                    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`,)
-                    if (!res.ok) {
-                        const body = await res.json() 
-                        throw new Error(`HTTP error ${res.status} : ${body.error}`) 
-                    }
-                    const data = await res.json()
+                    const data = await apiFetch("/posts")
                     setPosts(data)
                 } catch (error) {
                     console.error(error)

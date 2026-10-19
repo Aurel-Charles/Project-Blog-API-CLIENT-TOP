@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { apiFetch } from "../api/api";
 
 export function Comments({postId}) {
     const [comments, setComments] = useState(null)
@@ -8,12 +9,7 @@ export function Comments({postId}) {
             console.log("fetching comments");
             async function getComments() {
                 try {
-                    const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}/comments`,)
-                    if (!res.ok) {
-                        const body = await res.json() 
-                        throw new Error(`HTTP error ${res.status} : ${body.error}`) 
-                    }
-                    const data = await res.json()
+                    const data = await apiFetch(`/posts/${postId}/comments`)
                     setComments(data)
                 } catch (error) {
                     console.error(error)
@@ -34,7 +30,7 @@ export function Comments({postId}) {
 
     return (
         <div>
-            <h3>Comments of the {postId} </h3>
+            <h3>Comments of the {postId} post </h3>
             <div>
                 {comments.map((comment)=> (
                     <div key={comment.id}>
