@@ -1,14 +1,25 @@
-const base_URL= import.meta.env.VITE_API_URL
 
-export async function apiFetch(path, method = "GET", body) {
+export async function apiFetch(path, method = "GET", body) {    
+        const base_URL= import.meta.env.VITE_API_URL
+        const token = localStorage.getItem('token')
+        const headers = {
+            "Content-Type": "application/json",
+        }
+        if (token) {
+            headers.Authorization = `Bearer ${token}`
+        }
+
+        // fetch with all constant managed
         const res = await fetch(base_URL+path, {
             method: method,
             body: JSON.stringify(body),
-            headers: {"Content-Type": "application/json"}
+            headers: headers
         })
         if (!res.ok) {
-            const errorbody = await res.json() 
-            throw new Error(`HTTP error ${res.status} : ${errorbody.error}`) 
+            const data = await res.json()
+            const error = new Error(`HTTP error ${res.status} : ${data.error}`)  
+            error.errors = data.errors                                           
+            throw error
         }
         const data = await res.json()
         return data

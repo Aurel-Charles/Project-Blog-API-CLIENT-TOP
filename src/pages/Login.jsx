@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { apiFetch } from "../api/api"
-import { useNavigate } from "react-router"
+import { useNavigate, useOutletContext } from "react-router"
 
 export function Login() {
+    const {setToken} = useOutletContext()
     const navigate = useNavigate()
     const [email,  setEmail] = useState("")
     const [password,  setPassword] = useState("")
@@ -21,6 +22,7 @@ export function Login() {
             try {
                 const data = await apiFetch(`/auth/login`, "POST", body)
                 localStorage.setItem("token" , data.token)
+                setToken(data.token)
                 navigate("/")
             } catch (error) {
                 console.error(error)
