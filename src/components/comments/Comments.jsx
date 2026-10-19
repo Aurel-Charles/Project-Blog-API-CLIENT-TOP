@@ -45,6 +45,11 @@ export function Comments({postId}) {
         }
     }
     
+    function updateComments(updatedComment) {
+        setComments((prev)=> prev.map((c)=> (c.id === updatedComment.id ? updatedComment : c)))
+    }
+
+
     let commentsSection
 
     if (error) {
@@ -62,7 +67,13 @@ export function Comments({postId}) {
             {deleteError && <p>{deleteError.message}</p>}
 
             {comments.map((comment)=> (
-                <SingleComment key={comment.id} comment={comment} canManage={canManage} deleteComment={deleteComment} />
+                <SingleComment 
+                    key={comment.id} 
+                    comment={comment} 
+                    postId={postId} 
+                    canManage={canManage} 
+                    deleteComment={deleteComment} 
+                    updateComments={updateComments} />
             ) )}
         </div>
         )
