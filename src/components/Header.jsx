@@ -1,4 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router";
+import { LogOut } from "lucide-react";
 import styles from "./Header.module.css"
 
 // NavLink donne isActive : on ajoute la classe .active sur la page en cours
@@ -25,7 +26,10 @@ export function Header({token, setToken, user}) {
               {token ?
                 <>
                 {user && <span className={styles.greeting}>Hello {user.firstname} {user.lastname[0]}.</span>}
-                <button type="button" className={styles.logout} onClick={logout}>Log out</button>
+                <button type="button" className={styles.logout} onClick={logout}>
+                  <LogOut size={16} aria-hidden="true" />
+                  Log out
+                </button>
                 </>
               :
                 <>

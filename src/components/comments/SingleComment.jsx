@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { apiFetch } from "../../api/api"
 import { formatDate } from "../../utils/formatDate"
+import { LoaderCircle, Pencil, Trash2 } from "lucide-react"
 import { FieldErrors } from "../FieldErrors"
 import page from "../../styles/page.module.css"
 import styles from "./SingleComment.module.css"
@@ -43,7 +44,10 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
             <li className={`${styles.comment} ${styles.editing}`}>
                 {error && !error.errors && <p className={page.error} role="alert">{error.message}</p>}
                 {isSaving ?
-                    <button disabled>Saving…</button> :
+                    <button className={styles.saving} disabled>
+                        <LoaderCircle className={styles.spin} size={16} aria-hidden="true" />
+                        Saving…
+                    </button> :
                     <>
                     <label htmlFor={`edit-${comment.id}`}>Edit your comment</label>
                     <textarea name="content" id={`edit-${comment.id}`} value={draft} onChange={(e)=>storeValue(setDraft, e)}></textarea>
@@ -67,8 +71,14 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
         
         {canManage(comment) && (
             <div className={styles.actions}>
-                <button className={styles.quiet} onClick={()=> (setIsEditing(true)) } >Edit</button>
-                <button className={`${styles.quiet} ${styles.danger}`} onClick={()=> deleteComment(comment.id)}>Delete</button>
+                <button className={styles.quiet} onClick={()=> (setIsEditing(true)) } >
+                    <Pencil size={14} aria-hidden="true" />
+                    Edit
+                </button>
+                <button className={`${styles.quiet} ${styles.danger}`} onClick={()=> deleteComment(comment.id)}>
+                    <Trash2 size={14} aria-hidden="true" />
+                    Delete
+                </button>
             </div>
             )
         }

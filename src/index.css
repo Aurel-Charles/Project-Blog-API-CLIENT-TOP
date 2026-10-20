@@ -10,7 +10,7 @@
   --correction: #b3261e;
 
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
-  --sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sans: "Fira Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --page: 46rem;     /* largeur max du contenu */
   --measure: 68ch;   /* longueur de ligne confortable pour lire */

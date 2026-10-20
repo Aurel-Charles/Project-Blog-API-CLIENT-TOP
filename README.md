@@ -1,16 +1,108 @@
-# React + Vite
+# My Odin Project blog — reader client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The public-facing front end of my **Blog API** project: a React app where readers browse published posts, read them in full, and join the discussion in the comments.
 
-Currently, two official plugins are available:
+Built as part of [The Odin Project](https://www.theodinproject.com/) — Full Stack JavaScript path. The project is split in three parts:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Blog API** — REST API (Express 5, Prisma, PostgreSQL, JWT auth)
+- **Reader client** — this repo
+- **Admin client** — for writing, editing and publishing posts (coming next)
 
-## React Compiler
+## Live demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+[Visit the blog](https://project-blog-api-client-top.netlify.app)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- Home page with a short introduction and the latest published post
+- Post index with publication date, excerpt and author
+- Full post page with publication and update dates
+- Comments on every post
+  - anonymous readers comment with a name, logged-in readers comment as themselves
+  - authors can edit and delete their own comments, admins can manage all of them
+  - the list updates instantly, without reloading the page
+- Sign up, log in and log out (JWT stored in `localStorage`, user fetched from `/auth/me`)
+- Validation errors from the API shown under the matching field
+- Loading and error states on every request, and a 404 page
+- Responsive layout, visible keyboard focus, reduced-motion support
+
+## Tech stack
+
+- **React 19** + **Vite**
+- **React Router** (data mode: `createBrowserRouter`, layout route with `Outlet`)
+- **CSS Modules** with global design tokens (CSS custom properties)
+- **Lucide React** for icons
+- Fonts: **Newsreader** (reading) and **Fira Sans** (interface), from Google Fonts
+
+## Getting started
+
+```bash
+git clone git@github.com:Aurel-Charles/Project-Blog-API-CLIENT-TOP.git
+cd Project-Blog-API-CLIENT-TOP
+npm install
+cp .env.example .env   # then set the API URL
+npm run dev
+```
+
+### Environment variables
+
+| Variable | Description |
+|---|---|
+| `VITE_API_URL` | Base URL of the Blog API, without a trailing slash (e.g. `http://localhost:3000`) |
+
+Vite inlines this value at build time, so on Netlify it must be set in the site's environment variables **before** building.
+
+## Project structure
+
+```
+src/
+├── main.jsx            router setup
+├── routes.jsx          layout route + pages
+├── App.jsx             header, footer, auth state (token + user)
+├── api/api.js          apiFetch(): base URL, JSON, Bearer token, errors
+├── components/
+│   ├── Header, Footer, FieldErrors
+│   └── comments/       Comments, SingleComment, CommentForm
+├── pages/              Home, Posts, SinglePost, Login, Register, NotFound
+├── styles/             shared CSS Modules (page, article, form)
+├── utils/              formatDate, truncate
+└── index.css           design tokens, reset, base styles
+```
+
+## API endpoints used
+
+| Method | Endpoint | Used for |
+|---|---|---|
+| `GET` | `/posts` | post index, latest post |
+| `GET` | `/posts/:postId` | single post |
+| `GET` | `/posts/:postId/comments` | comments list |
+| `POST` | `/posts/:postId/comments` | add a comment |
+| `PATCH` | `/posts/:postId/comments/:commentId` | edit a comment |
+| `DELETE` | `/posts/:postId/comments/:commentId` | delete a comment |
+| `POST` | `/auth/register` | sign up |
+| `POST` | `/auth/login` | log in |
+| `GET` | `/auth/me` | current user |
+
+## Deployment
+
+Deployed on **Netlify**:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Environment variable: `VITE_API_URL`
+
+`public/_redirects` sends every route to `index.html`, so links like `/posts/3` work when opened directly or reloaded:
+
+```
+/*    /index.html   200
+```
+
+## What I learned
+
+- Fetching data in `useEffect` with loading / error / data states
+- Centralising requests in one `apiFetch` helper that throws errors carrying the HTTP status and validation details
+- Sharing auth state through `useOutletContext` and refreshing it with `/auth/me`
+- Updating lists without refetching: spread to add, `filter` to delete, `map` to replace
+- Controlled forms and field-level error messages
+- Styling a React app with CSS Modules and design tokens

@@ -41,6 +41,9 @@
 
 /* Edit / Delete : boutons discrets, en texte */
 .quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
   padding: 0;
   border: none;
   background: none;
@@ -58,6 +61,23 @@
 
 .danger:hover {
   color: var(--correction);
+}
+
+.saving {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* rotation du spinner pendant la sauvegarde (coupée si "réduire les animations") */
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .editActions {

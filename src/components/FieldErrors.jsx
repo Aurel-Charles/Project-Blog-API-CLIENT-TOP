@@ -1,3 +1,4 @@
+import { CircleAlert } from "lucide-react"
 import styles from "./FieldErrors.module.css"
 
 export function FieldErrors({error, field}) {
@@ -5,7 +6,12 @@ export function FieldErrors({error, field}) {
         <>
         {error?.errors
             ?.filter((e) => e.path === field)
-            .map((e) => <p key={e.msg} className={styles.error}>{e.msg}</p>)}
+            .map((e) => (
+                <p key={e.msg} className={styles.error}>
+                    <CircleAlert className={styles.icon} size={14} aria-hidden="true" />
+                    {e.msg}
+                </p>
+            ))}
         </>
     )
 }

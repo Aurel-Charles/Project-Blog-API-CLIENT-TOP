@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router"
+import { ArrowLeft } from "lucide-react";
 import { Comments } from "../components/comments/Comments";
 import { apiFetch } from "../api/api";
 import { formatDate } from "../utils/formatDate";
@@ -34,7 +35,10 @@ export function SinglePost() {
     return (
         <>
         <article>
-            <Link to="/posts" className={article.back}>All posts</Link>
+            <Link to="/posts" className={article.back}>
+                <ArrowLeft size={16} aria-hidden="true" />
+                All posts
+            </Link>
             <h1 className={article.title}>{post.title}</h1>
             <div className={article.meta}>
                 <span>By {post.author.firstname} {post.author.lastname}</span>
