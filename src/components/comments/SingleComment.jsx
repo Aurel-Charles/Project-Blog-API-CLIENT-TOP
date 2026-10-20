@@ -28,7 +28,7 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
             updateComments(updatedComment)
             setIsEditing(false)
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setError(error)
         }
         finally{

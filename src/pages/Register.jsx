@@ -29,7 +29,7 @@ export function Register() {
                 setToken(data.token)
                 navigate('/')
             } catch (error) {
-                console.error(error.errors)
+                console.error(error)
                 setError(error)
             }
         }

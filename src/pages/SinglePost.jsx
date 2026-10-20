@@ -19,7 +19,7 @@ export function SinglePost() {
                 const data = await apiFetch(`/posts/${postId}`)
                 setPost(data)
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 setError(error)
             }
         }

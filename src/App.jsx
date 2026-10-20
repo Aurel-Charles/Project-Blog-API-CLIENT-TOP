@@ -18,7 +18,7 @@ function App() {
         const data = await apiFetch("/auth/me")
         setUser(data)
       } catch (error) {
-        console.log(error);
+        console.error(error);
         if (error.status === 401) {
           localStorage.removeItem("token")
           setToken(null)
@@ -30,7 +30,6 @@ function App() {
   },
   [token]
 )
-  console.log(user);
 
   return (
     <>
