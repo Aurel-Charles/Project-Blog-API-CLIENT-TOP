@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.heading {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.hint {
+  margin-top: calc(var(--space-3) * -1);
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}

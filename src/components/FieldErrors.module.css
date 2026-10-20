@@ -1,0 +1,6 @@
+/* annotation en rouge sous le champ */
+.error {
+  margin-top: var(--space-1);
+  color: var(--correction);
+  font-size: 0.875rem;
+}

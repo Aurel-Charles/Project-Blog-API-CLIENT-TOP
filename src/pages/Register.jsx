@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { apiFetch } from "../api/api"
-import { useNavigate, useOutletContext } from "react-router"
+import { Link, useNavigate, useOutletContext } from "react-router"
 import { FieldErrors } from "../components/FieldErrors"
+import page from "../styles/page.module.css"
+import form from "../styles/form.module.css"
 
 export function Register() {
     const {setToken} = useOutletContext()
@@ -38,29 +40,41 @@ export function Register() {
 
 
     return (
-        <>
-        <h2>Register</h2>
-        {error && !error.errors && <p>{error.message}</p>}
-        <form onSubmit={submitRegister}>
-            <label htmlFor="firstname">Firstname: </label>
-            <input type="text" name="firstname" id="firstname" onChange={(e)=> storeValue(setFirstname, e)} value={firstname} />
-            <FieldErrors error={error} field={"firstname"}/>
-            <label htmlFor="lastname">Lastname: </label>
-            <input type="text" name="lastname" id="lastname" onChange={(e)=> storeValue(setLastname, e)} value={lastname}/>
-            <FieldErrors error={error} field={"lastname"}/>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" onChange={(e)=> storeValue(setEmail, e)} value={email}/>
-            <FieldErrors error={error} field={"email"}/>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" onChange={(e)=> storeValue(setPassword, e)} value={password}/>
-            <FieldErrors error={error} field={"password"}/>
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" onChange={(e)=> storeValue(setConfirmPassword, e)} value={confirmPassword}/>
-            <FieldErrors error={error} field={"confirmPassword"}/>
+        <div className={form.page}>
+        <h1 className={page.heading}>Create an account</h1>
+        <p className={page.lede}>Already have one? <Link to="/login">Log in</Link></p>
+        {error && !error.errors && <p className={page.error} role="alert">{error.message}</p>}
+        <form className={form.form} onSubmit={submitRegister}>
+            <div className={form.row}>
+                <div>
+                    <label htmlFor="firstname">First name</label>
+                    <input type="text" name="firstname" id="firstname" autoComplete="given-name" onChange={(e)=> storeValue(setFirstname, e)} value={firstname} />
+                    <FieldErrors error={error} field={"firstname"}/>
+                </div>
+                <div>
+                    <label htmlFor="lastname">Last name</label>
+                    <input type="text" name="lastname" id="lastname" autoComplete="family-name" onChange={(e)=> storeValue(setLastname, e)} value={lastname}/>
+                    <FieldErrors error={error} field={"lastname"}/>
+                </div>
+            </div>
+            <div>
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" id="email" autoComplete="email" onChange={(e)=> storeValue(setEmail, e)} value={email}/>
+                <FieldErrors error={error} field={"email"}/>
+            </div>
+            <div>
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" id="password" autoComplete="new-password" onChange={(e)=> storeValue(setPassword, e)} value={password}/>
+                <FieldErrors error={error} field={"password"}/>
+            </div>
+            <div>
+                <label htmlFor="confirmPassword">Confirm password</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" autoComplete="new-password" onChange={(e)=> storeValue(setConfirmPassword, e)} value={confirmPassword}/>
+                <FieldErrors error={error} field={"confirmPassword"}/>
+            </div>
 
-
-            <button type="submit">Submit</button>
+            <button type="submit" className={form.submit}>Create account</button>
         </form>
-        </>
+        </div>
     )
-} 
+}

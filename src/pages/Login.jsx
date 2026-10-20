@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { apiFetch } from "../api/api"
-import { useNavigate, useOutletContext } from "react-router"
+import { Link, useNavigate, useOutletContext } from "react-router"
 import { FieldErrors } from "../components/FieldErrors"
+import page from "../styles/page.module.css"
+import form from "../styles/form.module.css"
 
 export function Login() {
     const {setToken} = useOutletContext()
@@ -38,19 +40,24 @@ export function Login() {
    
 
     return (
-        <>
-        <h2>Login</h2>
-        {error && !error.errors && <p>{error.message}</p> }
-        <form onSubmit={submitLogin}>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" onChange={(e)=> storeValue(setEmail, e)} value={email}/>
-            <FieldErrors error={error} field={"email"}/>
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" onChange={(e)=> storeValue(setPassword, e)} value={password}/>
-            <FieldErrors error={error} field={"password"}/>
+        <div className={form.page}>
+        <h1 className={page.heading}>Log in</h1>
+        <p className={page.lede}>No account yet? <Link to="/register">Sign up</Link></p>
+        {error && !error.errors && <p className={page.error} role="alert">{error.message}</p>}
+        <form className={form.form} onSubmit={submitLogin}>
+            <div>
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" id="email" autoComplete="email" onChange={(e)=> storeValue(setEmail, e)} value={email}/>
+                <FieldErrors error={error} field={"email"}/>
+            </div>
+            <div>
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" id="password" autoComplete="current-password" onChange={(e)=> storeValue(setPassword, e)} value={password}/>
+                <FieldErrors error={error} field={"password"}/>
+            </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" className={form.submit}>Log in</button>
         </form>
-        </>
+        </div>
     )
-} 
+}

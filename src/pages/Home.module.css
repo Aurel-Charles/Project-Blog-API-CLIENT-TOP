@@ -1,0 +1,12 @@
+.intro {
+  margin-bottom: var(--space-7);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--rule);
+}
+
+.label {
+  margin-bottom: var(--space-3);
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}

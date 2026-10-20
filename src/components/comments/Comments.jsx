@@ -3,6 +3,8 @@ import { apiFetch } from "../../api/api";
 import { CommentForm } from "./CommentForm";
 import { useOutletContext } from "react-router";
 import { SingleComment } from "./SingleComment";
+import page from "../../styles/page.module.css"
+import styles from "./Comments.module.css"
 
 export function Comments({postId}) {
     const {user} = useOutletContext()
@@ -53,19 +55,20 @@ export function Comments({postId}) {
     let commentsSection
 
     if (error) {
-        commentsSection = <p> {error.message} </p>
+        commentsSection = <p className={`${page.error} ${styles.empty}`}>{error.message}</p>
     }
     else if (comments === null) {
-        commentsSection = <p> Loading ... </p>
+        commentsSection = <p className={`${page.status} ${styles.empty}`}>Loading…</p>
     }
     else if (comments.length === 0 ) {
-        commentsSection =  <p> No comment yet </p>
+        commentsSection = <p className={`${page.status} ${styles.empty}`}>No comments yet.</p>
     }
     else {
         commentsSection = (
-            <div>
-            {deleteError && <p>{deleteError.message}</p>}
+            <>
+            {deleteError && <p className={page.error} role="alert">{deleteError.message}</p>}
 
+            <ol className={styles.list}>
             {comments.map((comment)=> (
                 <SingleComment 
                     key={comment.id} 
@@ -75,15 +78,18 @@ export function Comments({postId}) {
                     deleteComment={deleteComment} 
                     updateComments={updateComments} />
             ) )}
-        </div>
+            </ol>
+            </>
         )
     }
 
     return (
-        <div>
-            <h3>Comments of the {postId} post </h3>
+        <section className={styles.section}>
+            <h2 className={styles.heading}>
+                Comments {comments?.length > 0 && <span className={styles.count}>({comments.length})</span>}
+            </h2>
             {commentsSection}
             <CommentForm postId={postId} addComment={addComment}/>
-        </div>
+        </section>
     )
 }

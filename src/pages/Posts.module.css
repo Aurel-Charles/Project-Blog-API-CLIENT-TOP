@@ -1,0 +1,64 @@
+/* Index des posts : la date dans la marge, comme dans un carnet */
+.list {
+  margin-top: var(--space-6);
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--rule);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: var(--space-5);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.date {
+  padding-top: 0.45rem;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  margin-bottom: var(--space-2);
+  font-family: var(--serif);
+  font-size: 1.625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.title a:hover {
+  color: var(--plume);
+}
+
+.excerpt {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.author {
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 40rem) {
+  .item {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .date {
+    padding-top: 0;
+  }
+}

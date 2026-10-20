@@ -2,6 +2,8 @@ import { useState } from "react"
 import { apiFetch } from "../../api/api"
 import { formatDate } from "../../utils/formatDate"
 import { FieldErrors } from "../FieldErrors"
+import page from "../../styles/page.module.css"
+import styles from "./SingleComment.module.css"
 
 export function SingleComment({comment,postId, canManage, deleteComment, updateComments}) {
     const [draft, setDraft] = useState(comment.content)
@@ -38,34 +40,38 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
 
     if (isEditing) {
         return (
-            <div>
-                {error && !error.errors && <p>{error.message}</p>}
+            <li className={`${styles.comment} ${styles.editing}`}>
+                {error && !error.errors && <p className={page.error} role="alert">{error.message}</p>}
                 {isSaving ?
-                    <button disabled>Saving..</button> :
+                    <button disabled>Saving…</button> :
                     <>
+                    <label htmlFor={`edit-${comment.id}`}>Edit your comment</label>
                     <textarea name="content" id={`edit-${comment.id}`} value={draft} onChange={(e)=>storeValue(setDraft, e)}></textarea>
                     <FieldErrors error={error} field={"content"}/>
-                    <button onClick={()=> saveEdit()}>Save</button>
-                    <button onClick={()=> cancelEdit()}>Cancel</button>
+                    <div className={styles.editActions}>
+                        <button onClick={()=> saveEdit()}>Save</button>
+                        <button className={styles.secondary} onClick={()=> cancelEdit()}>Cancel</button>
+                    </div>
                     </>
                 }
-            </div>
+            </li>
         )
     }
     return (
-    <div>
-        <p> {comment.name} </p>
-        <p> {comment.content} </p>
-        <p> {formatDate(comment.createdAt, "short")} </p>
+    <li className={styles.comment}>
+        <div className={styles.header}>
+            <span className={styles.name}>{comment.name}</span>
+            <time className={styles.date} dateTime={comment.createdAt}>{formatDate(comment.createdAt, "short")}</time>
+        </div>
+        <p className={styles.content}>{comment.content}</p>
         
         {canManage(comment) && (
-            <div>
-                <button onClick={()=> (setIsEditing(true)) } >Edit</button>
-                <button onClick={()=> deleteComment(comment.id)}>Delete</button>
+            <div className={styles.actions}>
+                <button className={styles.quiet} onClick={()=> (setIsEditing(true)) } >Edit</button>
+                <button className={`${styles.quiet} ${styles.danger}`} onClick={()=> deleteComment(comment.id)}>Delete</button>
             </div>
             )
         }
-
-    </div>
+    </li>
     )
 }

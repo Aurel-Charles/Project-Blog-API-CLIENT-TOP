@@ -2,9 +2,12 @@ import { useState } from "react"
 import { useOutletContext } from "react-router"
 import { apiFetch } from "../../api/api"
 import { FieldErrors } from "../FieldErrors"
+import page from "../../styles/page.module.css"
+import form from "../../styles/form.module.css"
+import styles from "./CommentForm.module.css"
 
 export function CommentForm({postId, addComment}) {
-    const {token} = useOutletContext()
+    const {token, user} = useOutletContext()
     const [name, setName] = useState("")
     const [content, setContent] = useState("")
     const [error, setError] = useState(null)
@@ -32,24 +35,27 @@ export function CommentForm({postId, addComment}) {
     }
 
     return(
-        <form className="form-coment" onSubmit={submitComment}>
-            {error && !error.errors && <p>{error.message}</p>}
-            <p>Add a comment for the post {postId}</p>
+        <form className={styles.form} onSubmit={submitComment}>
+            <h3 className={styles.heading}>Leave a comment</h3>
+            {user && <p className={styles.hint}>Commenting as {user.firstname} {user.lastname[0]}.</p>}
+            {error && !error.errors && <p className={page.error} role="alert">{error.message}</p>}
 
             {!token && 
-                <> 
-                <label htmlFor="name">Name:</label>
-                <input type="text" name="name" id="name" onChange={(e)=> storeValue(setName, e)} value={name} /> 
+                <div> 
+                <label htmlFor="name">Name</label>
+                <input type="text" name="name" id="name" autoComplete="name" onChange={(e)=> storeValue(setName, e)} value={name} /> 
                 <FieldErrors error={error} field={"name"}/>
-                </>
+                </div>
             }
 
-            <label htmlFor="content">Comment:</label>
+            <div>
+            <label htmlFor="content">Comment</label>
             <textarea name="content" id="content" onChange={(e)=> storeValue(setContent, e)} value={content}>
             </textarea> 
             <FieldErrors error={error} field={"content"}/>
+            </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" className={form.submit}>Post comment</button>
         </form>
     )
 }

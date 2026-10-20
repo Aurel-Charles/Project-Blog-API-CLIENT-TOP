@@ -1,4 +1,10 @@
-import { Link, useNavigate} from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
+import styles from "./Header.module.css"
+
+// NavLink donne isActive : on ajoute la classe .active sur la page en cours
+function navClass({ isActive }) {
+    return isActive ? `${styles.link} ${styles.active}` : styles.link
+}
 
 export function Header({token, setToken, user}) {
     const navigate = useNavigate()
@@ -9,24 +15,26 @@ export function Header({token, setToken, user}) {
     }
 
     return(
-        <header>
-        <h1>My Odin Project blog</h1>
-        
+        <header className={styles.header}>
+          <div className={styles.inner}>
+            <Link to="/" className={styles.brand}>My Odin Project blog</Link>
 
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/posts">Posts</Link>
-        </nav>
-        {user && <span>Hello {user.firstname} {user.lastname[0]}. </span> }
-          {token ? 
-            <button onClick={logout}>Logout</button>
-          : 
-            <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-            </> 
-           }
-
-      </header>
+            <nav className={styles.nav} aria-label="Main">
+              <NavLink to="/" end className={navClass}>Home</NavLink>
+              <NavLink to="/posts" className={navClass}>Posts</NavLink>
+              {token ?
+                <>
+                {user && <span className={styles.greeting}>Hello {user.firstname} {user.lastname[0]}.</span>}
+                <button type="button" className={styles.logout} onClick={logout}>Log out</button>
+                </>
+              :
+                <>
+                <NavLink to="/login" className={navClass}>Log in</NavLink>
+                <NavLink to="/register" className={navClass}>Sign up</NavLink>
+                </>
+              }
+            </nav>
+          </div>
+        </header>
     )
 }

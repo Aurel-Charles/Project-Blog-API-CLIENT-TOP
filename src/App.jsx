@@ -1,9 +1,9 @@
-import './App.css'
 import { Outlet } from 'react-router'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { useEffect, useState } from 'react'
 import { apiFetch } from './api/api'
+import styles from './App.module.css'
 
 function App() {
   const [token, setToken] = useState(()=> localStorage.getItem("token"))
@@ -35,7 +35,7 @@ function App() {
     <>
     <Header token={token} setToken= {setToken} user={user} />
 
-    <main>
+    <main className={styles.main}>
       <Outlet context={{token, setToken, user}} />
     </main>
 
