@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router";
 import { apiFetch } from "../api/api";
+import { truncate } from "../utils/truncate";
+import { formatDate } from "../utils/formatDate";
 
 export function Posts() {
     const [posts, setPosts] = useState(null)
@@ -29,9 +31,9 @@ export function Posts() {
             {posts.map((post)=> (
                 <div key={post.id}>
                     <Link to={`/posts/${post.id}`}>{post.title}</Link>
-                    <p> {post.content} </p>
-                    <p> {post.author.firstname} </p>
-                    <p> {post.author.lastname} </p>
+                    <p> {truncate(post.content, 150)} </p>
+                    <p>By {post.author.firstname} {post.author.lastname}</p>
+                    <p>Published: {formatDate(post.publishedAt, "short")} </p>
                 </div>
             ) )}
         </div>

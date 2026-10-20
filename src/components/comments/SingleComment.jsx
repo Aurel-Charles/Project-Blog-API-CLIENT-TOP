@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { apiFetch } from "../../api/api"
+import { formatDate } from "../../utils/formatDate"
 
 export function SingleComment({comment,postId, canManage, deleteComment, updateComments}) {
     const [draft, setDraft] = useState(comment.content)
@@ -53,7 +54,7 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
     <div>
         <p> {comment.name} </p>
         <p> {comment.content} </p>
-        <p> {new Date(comment.createdAt).toLocaleDateString("en-EN", { day: "numeric", month: "long", year: "numeric" })} </p>
+        <p> {formatDate(comment.createdAt, "short")} </p>
         
         {canManage(comment) && (
             <div>

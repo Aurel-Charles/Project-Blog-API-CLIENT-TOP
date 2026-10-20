@@ -1,6 +1,6 @@
 import { Link, useNavigate} from "react-router";
 
-export function Header({token, setToken}) {
+export function Header({token, setToken, user}) {
     const navigate = useNavigate()
     function logout() {
         localStorage.removeItem("token")
@@ -12,9 +12,12 @@ export function Header({token, setToken}) {
         <header>
         <h1>My Odin Project blog</h1>
         
+
         <nav>
           <Link to="/">Home</Link>
           <Link to="/posts">Posts</Link>
+        </nav>
+        {user && <span>Hello {user.firstname} {user.lastname[0]}. </span> }
           {token ? 
             <button onClick={logout}>Logout</button>
           : 
@@ -24,7 +27,6 @@ export function Header({token, setToken}) {
             </> 
            }
 
-        </nav>
       </header>
     )
 }

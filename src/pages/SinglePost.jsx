@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { Comments } from "../components/comments/Comments";
 import { apiFetch } from "../api/api";
+import { formatDate } from "../utils/formatDate";
 
 export function SinglePost() {
     const [post, setPost] = useState(null)
@@ -36,8 +37,9 @@ export function SinglePost() {
         <div>
             <p> {post.title} </p>
             <p> {post.content} </p>
-            <p> {post.author.firstname} </p>
-            <p> {post.author.lastname} </p>
+            <p>By {post.author.firstname} {post.author.lastname}</p>
+            <p>Published: {formatDate(post.publishedAt)} </p>
+            {formatDate(post.updatedAt) !== formatDate(post.publishedAt) && <p>Updated: {formatDate(post.updatedAt)} </p> }
         </div>
 
         <Comments postId={postId}/>

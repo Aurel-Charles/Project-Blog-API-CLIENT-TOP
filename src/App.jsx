@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-    <Header token={token} setToken= {setToken} />
+    <Header token={token} setToken= {setToken} user={user} />
 
     <main>
       <Outlet context={{token, setToken, user}} />
