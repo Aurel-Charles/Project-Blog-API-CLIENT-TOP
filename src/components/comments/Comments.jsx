@@ -3,6 +3,7 @@ import { apiFetch } from "../../api/api";
 import { CommentForm } from "./CommentForm";
 import { useOutletContext } from "react-router";
 import { SingleComment } from "./SingleComment";
+import { Loader } from "../Loader";
 import page from "../../styles/page.module.css"
 import styles from "./Comments.module.css"
 
@@ -58,7 +59,7 @@ export function Comments({postId}) {
         commentsSection = <p className={`${page.error} ${styles.empty}`}>{error.message}</p>
     }
     else if (comments === null) {
-        commentsSection = <p className={`${page.status} ${styles.empty}`}>Loading…</p>
+        commentsSection = <Loader size={22} />
     }
     else if (comments.length === 0 ) {
         commentsSection = <p className={`${page.status} ${styles.empty}`}>No comments yet.</p>

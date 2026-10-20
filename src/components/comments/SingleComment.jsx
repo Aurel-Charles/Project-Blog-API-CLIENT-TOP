@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { apiFetch } from "../../api/api"
 import { formatDate } from "../../utils/formatDate"
-import { LoaderCircle, Pencil, Trash2 } from "lucide-react"
+import { LoaderPinwheel, Pencil, Trash2 } from "lucide-react"
 import { FieldErrors } from "../FieldErrors"
 import page from "../../styles/page.module.css"
 import styles from "./SingleComment.module.css"
@@ -45,7 +45,7 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
                 {error && !error.errors && <p className={page.error} role="alert">{error.message}</p>}
                 {isSaving ?
                     <button className={styles.saving} disabled>
-                        <LoaderCircle className={styles.spin} size={16} aria-hidden="true" />
+                        <LoaderPinwheel className={styles.spin} size={16} aria-hidden="true" />
                         Saving…
                     </button> :
                     <>

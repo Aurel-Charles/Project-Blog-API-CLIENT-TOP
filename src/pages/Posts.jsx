@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { apiFetch } from "../api/api";
 import { truncate } from "../utils/truncate";
 import { formatDate } from "../utils/formatDate";
+import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import styles from "./Posts.module.css"
 
@@ -25,7 +26,7 @@ export function Posts() {
     )
 
     if (error) return <p className={page.error}>{error.message}</p>
-    if (posts === null) return <p className={page.status}>Loading…</p>
+    if (posts === null) return <Loader />
 
     return (
         <>

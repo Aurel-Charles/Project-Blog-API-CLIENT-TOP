@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { Comments } from "../components/comments/Comments";
 import { apiFetch } from "../api/api";
 import { formatDate } from "../utils/formatDate";
+import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import article from "../styles/article.module.css"
 
@@ -30,7 +31,7 @@ export function SinglePost() {
     )
 
     if (error) return <p className={page.error}>{error.message}</p>
-    if (post === null) return <p className={page.status}>Loading…</p>
+    if (post === null) return <Loader />
 
     return (
         <>

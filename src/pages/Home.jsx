@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { apiFetch } from "../api/api";
 import { Comments } from "../components/comments/Comments";
 import { formatDate } from "../utils/formatDate";
+import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import article from "../styles/article.module.css"
 import styles from "./Home.module.css"
@@ -31,7 +32,7 @@ export function Home() {
     if (error) {
       lastPostSection = <p className={page.error}>{error.message}</p>
     } else if (lastPost === null) {
-      lastPostSection = <p className={page.status}>Loading…</p>
+      lastPostSection = <Loader />
     } else if (lastPost === undefined) {
       lastPostSection = <p className={page.status}>No posts published yet.</p>
     } else {
