@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { apiFetch } from "../api/api"
 import { useNavigate, useOutletContext } from "react-router"
+import { FieldErrors } from "../components/FieldErrors"
 
 export function Login() {
     const {setToken} = useOutletContext()
@@ -39,12 +40,14 @@ export function Login() {
     return (
         <>
         <h2>Login</h2>
-        {error && `${error.message}` }
+        {error && !error.errors && <p>`${error.message}`</p> }
         <form onSubmit={submitLogin}>
             <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" onChange={(e)=> storeValue(setEmail, e)} value={email}/>
+            <FieldErrors error={error} field={"email"}/>
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" onChange={(e)=> storeValue(setPassword, e)} value={password}/>
+            <FieldErrors error={error} field={"password"}/>
 
             <button type="submit">Submit</button>
         </form>

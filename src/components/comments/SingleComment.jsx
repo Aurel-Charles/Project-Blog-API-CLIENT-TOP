@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { apiFetch } from "../../api/api"
 import { formatDate } from "../../utils/formatDate"
+import { FieldErrors } from "../FieldErrors"
 
 export function SingleComment({comment,postId, canManage, deleteComment, updateComments}) {
     const [draft, setDraft] = useState(comment.content)
@@ -38,11 +39,12 @@ export function SingleComment({comment,postId, canManage, deleteComment, updateC
     if (isEditing) {
         return (
             <div>
-                {error && <p>{error.message}</p>}
+                {error && !error.errors && <p>{error.message}</p>}
                 {isSaving ?
                     <button disabled>Saving..</button> :
                     <>
                     <textarea name="content" id={`edit-${comment.id}`} value={draft} onChange={(e)=>storeValue(setDraft, e)}></textarea>
+                    <FieldErrors error={error} field={"content"}/>
                     <button onClick={()=> saveEdit()}>Save</button>
                     <button onClick={()=> cancelEdit()}>Cancel</button>
                     </>
