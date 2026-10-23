@@ -15,3 +15,20 @@
   color: var(--ink-soft);
   font-size: 0.875rem;
 }
+
+/* Icône et texte alignés dans le bouton pendant l'envoi */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

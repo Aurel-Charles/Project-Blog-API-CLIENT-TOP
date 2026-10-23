@@ -5,11 +5,13 @@ import { FieldErrors } from "../FieldErrors"
 import page from "../../styles/page.module.css"
 import form from "../../styles/form.module.css"
 import styles from "./CommentForm.module.css"
+import { LoaderPinwheel } from "lucide-react"
 
 export function CommentForm({postId, addComment}) {
     const {token, user} = useOutletContext()
     const [name, setName] = useState("")
     const [content, setContent] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState(null)
 
     function storeValue(setValue, e) {
@@ -18,8 +20,9 @@ export function CommentForm({postId, addComment}) {
 
     function submitComment(e) {
         e.preventDefault()
-        const body = {name, content}
+        setIsSubmitting(true)
         setError(null)
+        const body = {name, content}
         async function postComment(body) {
             try {
                 const data = await apiFetch(`/posts/${postId}/comments`, "POST", body)
@@ -29,6 +32,8 @@ export function CommentForm({postId, addComment}) {
             } catch (error) {
                 console.error(error)
                 setError(error)
+            }finally{
+                setIsSubmitting(false)
             }
         }
         postComment(body)
@@ -55,7 +60,17 @@ export function CommentForm({postId, addComment}) {
             <FieldErrors error={error} field={"content"}/>
             </div>
 
-            <button type="submit" className={form.submit}>Post comment</button>
+
+            <button type="submit" className={`${form.submit} ${styles.submit}`} disabled={isSubmitting} >
+                {isSubmitting ? (
+                            <>
+                            <LoaderPinwheel className={styles.spin} size={16} aria-hidden="true" />
+                            Posting…
+                            </>
+                        ) : 
+                            "Post comment"
+                        }
+            </button>
         </form>
     )
 }
