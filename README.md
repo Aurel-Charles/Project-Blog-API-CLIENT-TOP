@@ -16,8 +16,9 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
 ## Features
 
 - Home page with a short introduction and the latest published post
-- Post index with publication date, excerpt and author
-- Full post page with publication and update dates
+- Post index with publication date, excerpt and author (the excerpt is plain text, extracted from the post's HTML)
+- Full post page with publication and update dates, rendering the formatted content (headings, lists, quotes, links, code blocks)
+- Post HTML is sanitized with **DOMPurify** before being rendered, even though the API already cleans it
 - Comments on every post
   - anonymous readers comment with a name, logged-in readers comment as themselves
   - authors can edit and delete their own comments, admins can manage all of them
@@ -34,6 +35,7 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
 - **React 19** + **Vite**
 - **React Router** (data mode: `createBrowserRouter`, layout route with `Outlet`)
 - **CSS Modules** with global design tokens (CSS custom properties)
+- **DOMPurify** to sanitize post HTML before rendering it
 - **Lucide React** for icons
 - Fonts: **Newsreader** (reading) and **Fira Sans** (interface), from Google Fonts
 
@@ -68,7 +70,7 @@ src/
 │   └── comments/       Comments, SingleComment, CommentForm
 ├── pages/              Home, Posts, SinglePost, Login, Register, NotFound
 ├── styles/             shared CSS Modules (page, article, form)
-├── utils/              formatDate, truncate
+├── utils/              formatDate, truncate, htmlToText, purifyHtml
 └── index.css           design tokens, reset, base styles
 ```
 
@@ -109,3 +111,4 @@ Deployed on **Netlify**:
 - Controlled forms and field-level error messages
 - Styling a React app with CSS Modules and design tokens
 - Showing a pending state while a request runs, and confirming destructive actions with a reusable dialog
+- Rendering HTML safely with DOMPurify and `dangerouslySetInnerHTML`, and turning HTML into plain text for excerpts with `DOMParser`
