@@ -4,9 +4,9 @@ The public-facing front end of my **Blog API** project: a React app where reader
 
 Built as part of [The Odin Project](https://www.theodinproject.com/) — Full Stack JavaScript path. The project is split in three parts:
 
-- **Blog API** — REST API (Express 5, Prisma, PostgreSQL, JWT auth)
+- **Blog API** — REST API (Express 5, Prisma, PostgreSQL, JWT auth) — [repo](https://github.com/Aurel-Charles/Project-Blog-API-SERVER-TOP)
 - **Reader client** — this repo
-- **Admin client** — for writing, editing and publishing posts (coming next)
+- **Admin portal** — for writing, editing and publishing posts — [repo](https://github.com/Aurel-Charles/Project-Blog-API-ADMIN-TOP) · [live](https://project-blog-api-admin-top.netlify.app)
 
 ## Live demo
 
@@ -22,6 +22,8 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
   - anonymous readers comment with a name, logged-in readers comment as themselves
   - authors can edit and delete their own comments, admins can manage all of them
   - the list updates instantly, without reloading the page
+  - deleting asks for confirmation first, in a dialog built on the native `<dialog>` element
+  - while a comment is being posted or deleted, the button is disabled and shows a spinner (*Posting…*, *Deleting…*), so nothing is sent twice
 - Sign up, log in and log out (JWT stored in `localStorage`, user fetched from `/auth/me`)
 - Validation errors from the API shown under the matching field
 - Loading and error states on every request, and a 404 page
@@ -62,7 +64,7 @@ src/
 ├── App.jsx             header, footer, auth state (token + user)
 ├── api/api.js          apiFetch(): base URL, JSON, Bearer token, errors
 ├── components/
-│   ├── Header, Footer, FieldErrors
+│   ├── Header, Footer, Loader, FieldErrors, ConfirmDialog
 │   └── comments/       Comments, SingleComment, CommentForm
 ├── pages/              Home, Posts, SinglePost, Login, Register, NotFound
 ├── styles/             shared CSS Modules (page, article, form)
@@ -106,3 +108,4 @@ Deployed on **Netlify**:
 - Updating lists without refetching: spread to add, `filter` to delete, `map` to replace
 - Controlled forms and field-level error messages
 - Styling a React app with CSS Modules and design tokens
+- Showing a pending state while a request runs, and confirming destructive actions with a reusable dialog
