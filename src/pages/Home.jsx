@@ -7,6 +7,7 @@ import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import article from "../styles/article.module.css"
 import styles from "./Home.module.css"
+import { purifyInnerHtml } from "../utils/purifyHtml";
 
 export function Home() {
     const [lastPost, setLastPost] = useState(null)
@@ -45,7 +46,7 @@ export function Home() {
             <span>By {lastPost.author.firstname} {lastPost.author.lastname}</span>
             <span>Published <time dateTime={lastPost.publishedAt}>{formatDate(lastPost.publishedAt)}</time></span>
           </div>
-          <div className={article.body}>{lastPost.content}</div>
+          <div className={article.body} dangerouslySetInnerHTML={purifyInnerHtml(lastPost.content)} ></div>
           <Comments postId={lastPost.id} />
         </article>
       )

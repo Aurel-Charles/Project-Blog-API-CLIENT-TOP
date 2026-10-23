@@ -7,6 +7,7 @@ import { formatDate } from "../utils/formatDate";
 import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import article from "../styles/article.module.css"
+import { purifyInnerHtml } from "../utils/purifyHtml";
 
 export function SinglePost() {
     const [post, setPost] = useState(null)
@@ -47,7 +48,7 @@ export function SinglePost() {
                 {formatDate(post.updatedAt) !== formatDate(post.publishedAt) &&
                     <span>Updated <time dateTime={post.updatedAt}>{formatDate(post.updatedAt)}</time></span>}
             </div>
-            <div className={article.body}>{post.content}</div>
+            <div className={article.body} dangerouslySetInnerHTML={purifyInnerHtml(post.content)}></div>
         </article>
 
         <Comments postId={postId}/>

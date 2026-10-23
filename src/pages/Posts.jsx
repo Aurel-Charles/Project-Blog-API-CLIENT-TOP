@@ -6,6 +6,7 @@ import { formatDate } from "../utils/formatDate";
 import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import styles from "./Posts.module.css"
+import { htmlToText } from "../utils/htmlToText";
 
 export function Posts() {
     const [posts, setPosts] = useState(null)
@@ -24,6 +25,7 @@ export function Posts() {
             },
         []
     )
+
 
     if (error) return <p className={page.error}>{error.message}</p>
     if (posts === null) return <Loader />
@@ -44,7 +46,7 @@ export function Posts() {
                             <h2 className={styles.title}>
                                 <Link to={`/posts/${post.id}`}>{post.title}</Link>
                             </h2>
-                            <p className={styles.excerpt}>{truncate(post.content, 160)}</p>
+                            <p className={styles.excerpt}>{truncate(htmlToText(post.content), 160)}</p>
                             <p className={styles.author}>By {post.author.firstname} {post.author.lastname}</p>
                         </div>
                     </li>
