@@ -26,6 +26,10 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
   - deleting asks for confirmation first, in a dialog built on the native `<dialog>` element
   - while a comment is being posted or deleted, the button is disabled and shows a spinner (*Posting…*, *Deleting…*), so nothing is sent twice
 - Sign up, log in and log out (JWT stored in `localStorage`, user fetched from `/auth/me`)
+- **My account** page, for logged-in readers only
+  - account details (name, email, role) shown as a description list
+  - every comment the reader has written, newest first, with a link to its post and a delete button (with confirmation)
+  - visitors without an account get an invitation to log in or sign up instead
 - Validation errors from the API shown under the matching field
 - Loading and error states on every request, and a 404 page
 - Responsive layout, visible keyboard focus, reduced-motion support
@@ -67,8 +71,8 @@ src/
 ├── api/api.js          apiFetch(): base URL, JSON, Bearer token, errors
 ├── components/
 │   ├── Header, Footer, Loader, FieldErrors, ConfirmDialog
-│   └── comments/       Comments, SingleComment, CommentForm
-├── pages/              Home, Posts, SinglePost, Login, Register, NotFound
+│   └── comments/       Comments, SingleComment, CommentForm, MyComments, MySingleComment
+├── pages/              Home, Posts, SinglePost, Login, Register, Account, NotFound
 ├── styles/             shared CSS Modules (page, article, form)
 ├── utils/              formatDate, truncate, htmlToText, purifyHtml
 └── index.css           design tokens, reset, base styles
@@ -87,6 +91,7 @@ src/
 | `POST` | `/auth/register` | sign up |
 | `POST` | `/auth/login` | log in |
 | `GET` | `/auth/me` | current user |
+| `GET` | `/auth/me/comments` | the reader's own comments (My account) |
 
 ## Deployment
 
