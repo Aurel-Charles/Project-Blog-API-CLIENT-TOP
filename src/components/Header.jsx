@@ -20,12 +20,13 @@ export function Header({token, setToken, user}) {
           <div className={styles.inner}>
             <Link to="/" className={styles.brand}>My Odin Project blog</Link>
 
+              {user && <span className={styles.greeting}>Hello {user.firstname} {user.lastname[0]}.</span>}
             <nav className={styles.nav} aria-label="Main">
               <NavLink to="/" end className={navClass}>Home</NavLink>
               <NavLink to="/posts" className={navClass}>Posts</NavLink>
               {token ?
                 <>
-                {user && <span className={styles.greeting}>Hello {user.firstname} {user.lastname[0]}.</span>}
+                <NavLink to="/account" className={navClass} >Account</NavLink>
                 <button type="button" className={styles.logout} onClick={logout}>
                   <LogOut size={16} aria-hidden="true" />
                   Log out
