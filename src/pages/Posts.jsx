@@ -14,7 +14,7 @@ export function Posts() {
     useEffect(()=> {
             async function getPosts() {
                 try {
-                    const data = await apiFetch("/posts")
+                    const data = await apiFetch("/posts?status=published")
                     setPosts(data)
                 } catch (error) {
                     console.error(error)

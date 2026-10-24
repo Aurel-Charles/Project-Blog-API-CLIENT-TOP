@@ -16,7 +16,7 @@ export function Home() {
     useEffect(()=> {
             async function getLastPost() {
                 try {
-                    const data = await apiFetch(`/posts`)
+                    const data = await apiFetch(`/posts?status=published`)
                     setLastPost(data[0])
                 } catch (error) {
                     console.error(error)
