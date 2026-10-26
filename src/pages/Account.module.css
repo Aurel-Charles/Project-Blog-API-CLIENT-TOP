@@ -28,6 +28,18 @@
   overflow-wrap: anywhere; /* un long email ne déborde pas sur mobile */
 }
 
+/* Une section par réglage : profil, email, mot de passe */
+.section {
+  margin-top: var(--space-7);
+}
+
+.sectionHeading {
+  margin-bottom: var(--space-4);
+  font-family: var(--serif);
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
 /* Visiteur : les deux liens côte à côte */
 .actions {
   display: flex;

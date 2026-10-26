@@ -1,0 +1,54 @@
+/* Formulaire de profil : deux champs côte à côte, le bouton en dessous */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+/* Variante : un champ par ligne (formulaire du mot de passe, trois champs) */
+.stacked {
+  grid-template-columns: 1fr;
+  max-width: 24rem;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Icône et texte alignés dans le bouton pendant l'enregistrement */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Confirmation discrète, à côté du bouton */
+.saved {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 30rem) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+}

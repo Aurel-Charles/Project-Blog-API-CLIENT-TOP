@@ -36,7 +36,7 @@ function App() {
     <Header token={token} setToken= {setToken} user={user} />
 
     <main className={styles.main}>
-      <Outlet context={{token, setToken, user}} />
+      <Outlet context={{token, setToken, user, setUser}} />
     </main>
 
     <Footer/>

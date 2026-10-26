@@ -3,6 +3,9 @@ import { Loader } from "../components/Loader";
 import page from "../styles/page.module.css"
 import styles from "./Account.module.css"
 import { MyComments } from "../components/comments/MyComments";
+import { ProfilForm } from "../components/profil/ProfilForm";
+import { EmailForm } from "../components/profil/EmailForm";
+import { PasswordForm } from "../components/profil/PasswordForm";
 
 export function Account() {
     const {token , user} = useOutletContext()
@@ -52,6 +55,20 @@ export function Account() {
                     <dd>{user.role === "ADMIN" ? "Administrator" : "Member"}</dd>
                 </div>
             </dl>
+
+                            
+            <section className={styles.section}>
+                <h2 className={styles.sectionHeading}>Edit profile</h2>
+                <ProfilForm/>
+            </section>
+            <section className={styles.section}>
+                <h2 className={styles.sectionHeading}>Edit email</h2>
+                <EmailForm/>
+            </section>
+            <section className={styles.section}>
+                <h2 className={styles.sectionHeading}>Edit password</h2>
+                <PasswordForm/>
+            </section>
 
             <MyComments/>
         </div>
