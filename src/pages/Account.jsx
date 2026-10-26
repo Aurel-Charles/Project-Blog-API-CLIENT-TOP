@@ -6,9 +6,15 @@ import { MyComments } from "../components/comments/MyComments";
 import { ProfilForm } from "../components/profil/ProfilForm";
 import { EmailForm } from "../components/profil/EmailForm";
 import { PasswordForm } from "../components/profil/PasswordForm";
+import { useState } from "react";
 
 export function Account() {
     const {token , user} = useOutletContext()
+    const [isEditing, setIsEditing] = useState(false)
+
+    function toggleIsEdit() {
+        setIsEditing(!isEditing)
+    }
 
     if (!token) {
         return (
@@ -29,9 +35,19 @@ export function Account() {
         )
     }
 
+    console.log(isEditing);
+    
+
     return (
         <div className={styles.page}>
+        <div className={styles.top}>
             <h1 className={page.heading}>My account</h1>
+            <button type="button" className={styles.toggle} onClick={toggleIsEdit}>
+                {isEditing ? "Done" : "Edit"}
+            </button>
+        </div>
+        {!isEditing ? 
+        <div>
             <p className={page.lede}>The information linked to your account.</p>
 
             <dl className={styles.details}>
@@ -56,7 +72,10 @@ export function Account() {
                 </div>
             </dl>
 
-                            
+            <MyComments/>
+        </div>
+        : 
+        <div>
             <section className={styles.section}>
                 <h2 className={styles.sectionHeading}>Edit profile</h2>
                 <ProfilForm/>
@@ -69,8 +88,11 @@ export function Account() {
                 <h2 className={styles.sectionHeading}>Edit password</h2>
                 <PasswordForm/>
             </section>
+        </div>           
+        
+        }    
 
-            <MyComments/>
+
         </div>
     )
 }

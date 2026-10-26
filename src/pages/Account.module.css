@@ -3,6 +3,28 @@
   max-width: 32rem;
 }
 
+/* Titre et bouton Edit / Done sur la même ligne */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* Bouton secondaire : il change de mode, ce n'est pas l'action principale */
+.toggle {
+  border-color: var(--plume);
+  background: var(--paper);
+  color: var(--plume);
+}
+
+.toggle:hover {
+  border-color: var(--plume);
+  background: var(--plume);
+  color: #fff;
+}
+
 /* La fiche : chaque ligne est une paire libellé / valeur, séparées par un filet */
 .details {
   margin: var(--space-6) 0 0;
