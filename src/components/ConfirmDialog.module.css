@@ -43,6 +43,9 @@
 
 /* Supprimer : ici, le rouge plein est assumé, c'est l'action qu'on confirme */
 .confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   border-color: var(--correction);
   background: var(--correction);
   color: #fff;
@@ -51,4 +54,22 @@
 .confirm:hover {
   border-color: #8c1d17;
   background: #8c1d17;
+}
+
+/* Variante avec un champ (suppression du compte) */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Icône qui tourne pendant la suppression */
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

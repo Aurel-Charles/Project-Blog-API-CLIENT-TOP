@@ -29,6 +29,11 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
 - **My account** page, for logged-in readers only
   - account details (name, email, role) shown as a description list
   - every comment the reader has written, newest first, with a link to its post and a delete button (with confirmation)
+  - an **Edit** button switches to edit mode, with one form per setting:
+    - name (first and last)
+    - email, confirmed with the current password
+    - password, confirmed with the current password. The API answers with a new token, stored right away, so the reader stays logged in while every other session is ended
+  - **delete the account**, in a dialog that asks for the current password, then a confirmation page. Not shown to the admin
   - visitors without an account get an invitation to log in or sign up instead
 - Validation errors from the API shown under the matching field
 - Loading and error states on every request, and a 404 page
@@ -70,9 +75,10 @@ src/
 ├── App.jsx             header, footer, auth state (token + user)
 ├── api/api.js          apiFetch(): base URL, JSON, Bearer token, errors
 ├── components/
-│   ├── Header, Footer, Loader, FieldErrors, ConfirmDialog
+│   ├── Header, Footer, Loader, FieldErrors, ConfirmDialog, ConfirmDialogDeleteAccount
+│   ├── profil/         ProfilForm, EmailForm, PasswordForm
 │   └── comments/       Comments, SingleComment, CommentForm, MyComments, MySingleComment
-├── pages/              Home, Posts, SinglePost, Login, Register, Account, NotFound
+├── pages/              Home, Posts, SinglePost, Login, Register, Account, AccountDeleted, NotFound
 ├── styles/             shared CSS Modules (page, article, form)
 ├── utils/              formatDate, truncate, htmlToText, purifyHtml
 └── index.css           design tokens, reset, base styles
@@ -92,6 +98,10 @@ src/
 | `POST` | `/auth/login` | log in |
 | `GET` | `/auth/me` | current user |
 | `GET` | `/auth/me/comments` | the reader's own comments (My account) |
+| `PATCH` | `/auth/me` | edit first and last name |
+| `PATCH` | `/auth/me/email` | change email |
+| `PATCH` | `/auth/me/password` | change password (returns a new token) |
+| `DELETE` | `/auth/me` | delete the account |
 
 ## Deployment
 

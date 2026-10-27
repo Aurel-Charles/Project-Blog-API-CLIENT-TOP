@@ -1,5 +1,6 @@
 import App from "./App";
 import { Account } from "./pages/Account";
+import { AccountDeleted } from "./pages/AccountDeleted";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
@@ -18,6 +19,7 @@ export const routes = [
         {path : "login",element : <Login/> },
         {path : "register",element : <Register/> },
         {path : "account",element : <Account/> },
+        {path : "account-deleted",element : <AccountDeleted/> },
         {path : "*",element : <NotFound/> },
       ]
     }

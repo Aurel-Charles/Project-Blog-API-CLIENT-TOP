@@ -7,10 +7,13 @@ import { ProfilForm } from "../components/profil/ProfilForm";
 import { EmailForm } from "../components/profil/EmailForm";
 import { PasswordForm } from "../components/profil/PasswordForm";
 import { useState } from "react";
+import { ConfirmDialogDeleteAccount } from "../components/ConfirmDialogDeleteAccount";
 
 export function Account() {
     const {token , user} = useOutletContext()
     const [isEditing, setIsEditing] = useState(false)
+
+    const [isOpen, setIsOpen] = useState(false)
 
     function toggleIsEdit() {
         setIsEditing(!isEditing)
@@ -35,7 +38,6 @@ export function Account() {
         )
     }
 
-    console.log(isEditing);
     
 
     return (
@@ -88,9 +90,22 @@ export function Account() {
                 <h2 className={styles.sectionHeading}>Edit password</h2>
                 <PasswordForm/>
             </section>
+
+
+            {user.role !== "ADMIN" && 
+            <section className={`${styles.section} ${styles.dangerZone}`}>
+                <h2 className={styles.sectionHeading}>Delete account</h2>
+                <p className={styles.sectionText}>Your account and personal details are removed for good. Your comments stay on the blog under your name, without a link to your account.</p>
+                <div>
+                    <button type="button" className={styles.danger} onClick={()=> setIsOpen(true)}>
+                        Delete my account
+                    </button>
+                    <ConfirmDialogDeleteAccount isOpen={isOpen} onCancel={()=>setIsOpen(false)} message={"Are you sure you want to delete your account? This cannot be undone."}/>
+                </div>
+            </section>
+            }
         </div>           
-        
-        }    
+        }   
 
 
         </div>
