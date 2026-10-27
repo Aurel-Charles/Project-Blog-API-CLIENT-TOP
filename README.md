@@ -35,6 +35,7 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
     - password, confirmed with the current password. The API answers with a new token, stored right away, so the reader stays logged in while every other session is ended
   - **delete the account**, in a dialog that asks for the current password, then a confirmation page. Not shown to the admin
   - visitors without an account get an invitation to log in or sign up instead
+- **API documentation** page, for members only: the API's README, fetched from `GET /docs` and rendered with `react-markdown`, with a sticky menu of its sections (it moves above the content on small screens). Visitors see the link too, and an invitation to sign up
 - Validation errors from the API shown under the matching field
 - Loading and error states on every request, and a 404 page
 - Responsive layout, visible keyboard focus, reduced-motion support
@@ -45,6 +46,7 @@ Built as part of [The Odin Project](https://www.theodinproject.com/) — Full St
 - **React Router** (data mode: `createBrowserRouter`, layout route with `Outlet`)
 - **CSS Modules** with global design tokens (CSS custom properties)
 - **DOMPurify** to sanitize post HTML before rendering it
+- **react-markdown** + **remark-gfm** to render the API docs (tables included). It builds React elements and ignores raw HTML, so the Markdown needs no sanitizing
 - **Lucide React** for icons
 - Fonts: **Newsreader** (reading) and **Fira Sans** (interface), from Google Fonts
 
@@ -75,12 +77,12 @@ src/
 ├── App.jsx             header, footer, auth state (token + user)
 ├── api/api.js          apiFetch(): base URL, JSON, Bearer token, errors
 ├── components/
-│   ├── Header, Footer, Loader, FieldErrors, ConfirmDialog, ConfirmDialogDeleteAccount
+│   ├── Header, Footer, Loader, FieldErrors, MembersOnly, ConfirmDialog, ConfirmDialogDeleteAccount
 │   ├── profil/         ProfilForm, EmailForm, PasswordForm
 │   └── comments/       Comments, SingleComment, CommentForm, MyComments, MySingleComment
-├── pages/              Home, Posts, SinglePost, Login, Register, Account, AccountDeleted, NotFound
-├── styles/             shared CSS Modules (page, article, form)
-├── utils/              formatDate, truncate, htmlToText, purifyHtml
+├── pages/              Home, Posts, SinglePost, Login, Register, Account, AccountDeleted, Docs, NotFound
+├── styles/             shared CSS Modules (page, article, form, links)
+├── utils/              formatDate, truncate, htmlToText, purifyHtml, slugify
 └── index.css           design tokens, reset, base styles
 ```
 
@@ -98,6 +100,7 @@ src/
 | `POST` | `/auth/login` | log in |
 | `GET` | `/auth/me` | current user |
 | `GET` | `/auth/me/comments` | the reader's own comments (My account) |
+| `GET` | `/docs` | API documentation (members only) |
 | `PATCH` | `/auth/me` | edit first and last name |
 | `PATCH` | `/auth/me/email` | change email |
 | `PATCH` | `/auth/me/password` | change password (returns a new token) |

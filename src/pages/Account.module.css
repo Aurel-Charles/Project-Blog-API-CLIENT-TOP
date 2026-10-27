@@ -88,45 +88,6 @@
   color: #fff;
 }
 
-/* Visiteur : les deux liens côte à côte */
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-/* Log in : l'action principale, au style des boutons du site */
-.primary {
-  padding: 0.5rem 1.125rem;
-  border: 1px solid var(--plume);
-  border-radius: var(--radius);
-  background: var(--plume);
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.primary:hover {
-  border-color: var(--plume-dark);
-  background: var(--plume-dark);
-}
-
-/* Sign up : secondaire, en contour */
-.secondary {
-  padding: 0.5rem 1.125rem;
-  border: 1px solid var(--plume);
-  border-radius: var(--radius);
-  background: var(--paper);
-  color: var(--plume);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.secondary:hover {
-  background: var(--plume);
-  color: #fff;
-}
-
 @media (max-width: 30rem) {
   .row {
     grid-template-columns: 1fr;

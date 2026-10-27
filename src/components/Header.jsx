@@ -24,6 +24,7 @@ export function Header({token, setToken, user}) {
             <nav className={styles.nav} aria-label="Main">
               <NavLink to="/" end className={navClass}>Home</NavLink>
               <NavLink to="/posts" className={navClass}>Posts</NavLink>
+              <NavLink to="/docs" className={navClass}>Documentation</NavLink>
               {token ?
                 <>
                 <NavLink to="/account" className={navClass} >Account</NavLink>

@@ -1,0 +1,4 @@
+/* Même largeur que la page « My account » */
+.page {
+  max-width: 32rem;
+}

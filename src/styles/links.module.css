@@ -1,0 +1,40 @@
+/* Liens qui ressemblent à des boutons, partagés entre les pages */
+
+/* Plusieurs liens côte à côte */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Action principale : au style des boutons du site */
+.primary {
+  padding: 0.5rem 1.125rem;
+  border: 1px solid var(--plume);
+  border-radius: var(--radius);
+  background: var(--plume);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primary:hover {
+  border-color: var(--plume-dark);
+  background: var(--plume-dark);
+}
+
+/* Action secondaire : en contour */
+.secondary {
+  padding: 0.5rem 1.125rem;
+  border: 1px solid var(--plume);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--plume);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.secondary:hover {
+  background: var(--plume);
+  color: #fff;
+}

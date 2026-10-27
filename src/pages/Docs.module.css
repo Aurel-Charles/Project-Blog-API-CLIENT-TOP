@@ -1,0 +1,235 @@
+/* Documentation de l'API : le README rendu par react-markdown.
+   Les balises n'ont pas de classe, on les cible depuis le conteneur. */
+/* ---------- Mise en page : menu à gauche, documentation à droite ---------- */
+
+/* La page de doc est plus large que le reste du site (46rem) :
+   on l'élargit jusqu'à 72rem, centrée dans la fenêtre */
+.layout {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-7);
+  width: min(72rem, calc(100vw - 2 * var(--space-5)));
+  margin-left: calc(50% - min(36rem, 50vw - var(--space-5)));
+}
+
+/* Le menu reste visible pendant le défilement */
+.toc {
+  position: sticky;
+  top: var(--space-5);
+  max-height: calc(100vh - 2 * var(--space-5));
+  overflow-y: auto;
+  padding-right: var(--space-2);
+  font-size: 0.875rem;
+}
+
+.tocTitle {
+  margin-bottom: var(--space-2);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+
+.toc a {
+  display: block;
+  padding: var(--space-1) var(--space-3);
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  border-left-color: var(--plume);
+  color: var(--plume);
+}
+
+/* ---------- Contenu ---------- */
+.docs {
+  min-width: 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* Un espace régulier entre les blocs */
+.docs > * + * {
+  margin-top: 1em;
+}
+
+/* ---------- Titres ---------- */
+.docs h1,
+.docs h2,
+.docs h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.docs h1 {
+  font-size: 2.25rem;
+}
+
+.docs h2 {
+  scroll-margin-top: var(--space-5); /* un peu d'air au-dessus du titre après un clic dans le menu */
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.625rem;
+}
+
+.docs h3 {
+  font-size: 1.25rem;
+}
+
+/* Plus d'air avant un titre qu'après */
+.docs > * + h2 {
+  margin-top: 2.5em;
+}
+
+.docs > * + h3 {
+  margin-top: 1.8em;
+}
+
+.docs > h2 + *,
+.docs > h3 + * {
+  margin-top: 0.6em;
+}
+
+/* Les --- entre les grandes parties */
+.docs hr {
+  margin: 2.5em 0;
+  border: none;
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- Texte ---------- */
+.docs a {
+  color: var(--plume);
+}
+
+.docs ul,
+.docs ol {
+  padding-left: 1.4em;
+}
+
+.docs li + li {
+  margin-top: 0.3em;
+}
+
+.docs blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--plume);
+  border-radius: var(--radius);
+  background: var(--wash);
+  color: var(--ink-soft);
+}
+
+/* ---------- Code ---------- */
+.docs code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius);
+  background: var(--wash);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875em;
+}
+
+/* Bloc de code : défile horizontalement plutôt que de casser les lignes */
+.docs pre {
+  overflow-x: auto;
+  padding: var(--space-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--wash);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.docs pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+/* ---------- Tableaux ---------- */
+/* display: block + overflow : un tableau trop large défile sur mobile
+   au lieu d'élargir toute la page */
+.docs table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.docs th,
+.docs td {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.docs th {
+  background: var(--wash);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Une ligne sur deux légèrement teintée, pour suivre une ligne du regard */
+.docs tbody tr:nth-child(even) {
+  background: #fafbfd;
+}
+
+/* Les noms de routes ne se coupent pas en deux */
+.docs td code {
+  white-space: nowrap;
+}
+
+/* ---------- Mobile : le menu passe au-dessus, sans rester fixe ---------- */
+@media (max-width: 56rem) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    width: auto;
+    margin-left: 0;
+  }
+
+  .toc {
+    position: static;
+    max-height: none;
+    padding: var(--space-4);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    background: var(--wash);
+  }
+
+  .toc ul {
+    border-left: none;
+  }
+
+  .toc a {
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+/* Un clic dans le menu fait défiler en douceur, sauf si l'utilisateur
+   a demandé à réduire les animations */
+@media (prefers-reduced-motion: no-preference) {
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+}

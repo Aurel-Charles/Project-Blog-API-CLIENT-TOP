@@ -1,5 +1,6 @@
-import { Link, useOutletContext } from "react-router"
-import { Loader } from "../components/Loader";
+import { useOutletContext } from "react-router"
+import { Loader } from "../components/Loader"
+import { MembersOnly } from "../components/MembersOnly";
 import page from "../styles/page.module.css"
 import styles from "./Account.module.css"
 import { MyComments } from "../components/comments/MyComments";
@@ -20,16 +21,7 @@ export function Account() {
     }
 
     if (!token) {
-        return (
-            <div className={styles.page}>
-                <h1 className={page.heading}>Members only</h1>
-                <p className={page.lede}>You need an account to view this page. Log in, or create one in a few seconds.</p>
-                <div className={styles.actions}>
-                    <Link to="/login" className={styles.primary}>Log in</Link>
-                    <Link to="/register" className={styles.secondary}>Sign up</Link>
-                </div>
-            </div>
-        )
+        return <MembersOnly message="You need an account to view this page. Log in, or create one in a few seconds." />
     }
 
     if (!user) {
